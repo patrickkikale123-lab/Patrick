@@ -1,0 +1,38 @@
+name: Build OUTBREAK APK
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download project
+        uses: actions/checkout@v4
+
+      - name: Unpack OUTBREAK
+        run: |
+          unzip -o OUTBREAK_Android_v3.0.zip -d outbreak
+          ls -la outbreak
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.7'
+
+      - name: Build APK
+        working-directory: outbreak
+        run: gradle assembleDebug --no-daemon
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: OUTBREAK-v3.0-APK
+          path: outbreak/app/build/outputs/apk/debug/*.apk
