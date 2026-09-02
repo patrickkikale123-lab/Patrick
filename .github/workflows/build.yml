@@ -27,6 +27,11 @@ jobs:
         with:
           gradle-version: '8.7'
 
+            - name: Enable AndroidX
+        run: |
+          echo "android.useAndroidX=true" >> outbreak/gradle.properties
+          echo "android.enableJetifier=true" >> outbreak/gradle.properties
+
       - name: Build APK
         working-directory: outbreak
         run: gradle assembleDebug --no-daemon
