@@ -13,8 +13,8 @@ jobs:
 
       - name: Unpack OUTBREAK
         run: |
-          unzip -o OUTBREAK_Android_v3.0.zip -d outbreak
-          ls -la outbreak
+          unzip -o OUTBREAK_Android_v3.0-1.zip -d outbreak
+
 
       - name: Setup Java
         uses: actions/setup-java@v4
