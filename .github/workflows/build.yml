@@ -15,22 +15,21 @@ jobs:
         run: |
           unzip -o OUTBREAK_Android_v3.0-1.zip -d outbreak
 
-
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
 
+      - name: Enable AndroidX
+        run: |
+          echo "android.useAndroidX=true" >> outbreak/gradle.properties
+          echo "android.enableJetifier=true" >> outbreak/gradle.properties
+
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.7'
-
-            - name: Enable AndroidX
-        run: |
-          echo "android.useAndroidX=true" >> outbreak/gradle.properties
-          echo "android.enableJetifier=true" >> outbreak/gradle.properties
 
       - name: Build APK
         working-directory: outbreak
